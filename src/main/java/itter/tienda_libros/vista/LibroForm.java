@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Component
 public class LibroForm extends JFrame {
     LibroServicio libroServicio;
     private JPanel panel;
+    private JTable tablaLibros;
+    private DefaultTableModel tablaModeloLibros;
 
     //Inyectamos la dependencia de Spring a traves del constructor
     @Autowired
@@ -32,5 +35,14 @@ public class LibroForm extends JFrame {
         int y = (tamanioPantalla.height - getHeight())/2;
         setLocation(x,y);
 
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        this.tablaModeloLibros = new DefaultTableModel(0,5);
+        String[] cabeceras = {"Id", "Libro", "Autor", "Precio", "Stock"};
+        this.tablaModeloLibros.setColumnIdentifiers(cabeceras);
+        //Instanciamos el Jtable
+        this.tablaLibros = new JTable(tablaModeloLibros);
     }
 }
